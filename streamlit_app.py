@@ -1,8 +1,8 @@
 import streamlit as st
 from openai import OpenAI
 
-st.title("☁️ Ollama Cloud Chatbot")
-st.caption("Powered by gpt-oss:120b-cloud")
+st.title("☁️ Ollama Cloud Chatbot by Ameya Kasetwar")
+st.caption("Powered by gpt-oss:120b-cloud. It's free, but use it in limits please")
 
 # Securely fetch the API key from Streamlit Secrets
 try:
