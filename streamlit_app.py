@@ -120,8 +120,8 @@ if prompt := st.chat_input(f"Message {selected_model}..."):
             # Initialize client
             client = OpenAI(api_key=api_key, base_url=base_url)
             
-            # Smart Memory: Only send the last 15 interactions to save context tokens
-            recent_context = st.session_state.messages[-15:]
+            # UNRESTRICTED MEMORY: Send the entire conversation history
+            recent_context = st.session_state.messages
             
             # Send the request
             stream = client.chat.completions.create(
@@ -136,6 +136,6 @@ if prompt := st.chat_input(f"Message {selected_model}..."):
             
         except Exception as e:
             # Graceful failure if a specific model is offline or times out
-            error_msg = f"**Connection Error:** I'm having trouble reaching `{selected_model}` right now. It might be offline or overloaded. Please try selecting a different model from the list above!"
+            error_msg = f"**Connection Error:** I'm having trouble reaching `{selected_model}` right now. It might be offline, overloaded, or the chat history has exceeded its maximum context limit. Please try selecting a different model from the list above!"
             st.error(error_msg)
             st.info(f"Developer details: {e}")
