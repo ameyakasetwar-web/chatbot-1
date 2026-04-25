@@ -7,7 +7,7 @@ from openai import OpenAI
 st.set_page_config(page_title="Cloud AI Hub", page_icon="☁️", layout="centered")
 
 st.title("☁️ Universal Cloud Chatbot")
-st.caption("Seamlessly switch between Fast, Thinking, and Pro open-source models.")
+st.caption("Seamlessly switch between Fast, Thinking, Pro, and Titan open-source models.")
 
 # Securely fetch the API key
 try:
@@ -19,12 +19,11 @@ except KeyError:
 base_url = "https://ollama.com/v1"
 
 # ==========================================
-# 2. THE MODEL REGISTRY (FILTERED)
+# 2. THE MODEL REGISTRY (FILTERED & EXPANDED)
 # ==========================================
-# Curated list of Gemma, Kimi, Mistral, Llama, Deepseek, GPT-OSS, and Qwen models
+# Curated list limited to: Gemma, Kimi, Mistral, Llama, Deepseek, GPT-OSS, and Qwen
 MODEL_CATALOG = {
     "⚡ Fast": [
-        "gemma3:4b", 
         "gemma3:12b",
         "ministral-3:8b",
         "llama3.1:8b",
@@ -37,15 +36,22 @@ MODEL_CATALOG = {
         "qwen3.5:latest"
     ],
     "🚀 Pro": [
-        "gpt-oss:120b-cloud",
         "gpt-oss:120b",
-        "gemma4:27b", 
         "mistral-large-3:latest",
         "llama3.3:70b",
-        "deepseek-v3.1:671b",
+        "deepseek-v3.2:latest",
         "kimi-k2.5:latest",
-        "qwen3-coder:latest", 
-        "qwen3-next:80b"
+        "qwen3-next:80b",
+        "gemma3:27b"
+    ],
+    "👑 Titans (Largest)": [
+        "kimi-k2.5:latest",      # 1 Trillion Parameters (MoE)
+        "deepseek-v3.1:671b",    # 671 Billion Parameters
+        "qwen3-coder:480b",      # 480 Billion Parameters
+        "llama3.1:405b",         # 405 Billion Parameters
+        "mistral-large:123b",    # 123 Billion Parameters
+        "gpt-oss:120b-cloud",    # 120 Billion Parameters
+        "gemma4:31b"             # 31 Billion Parameters
     ]
 }
 
@@ -65,8 +71,8 @@ def update_default_model():
     st.session_state.current_model = MODEL_CATALOG[category][0]
 
 if "selected_category" not in st.session_state:
-    st.session_state.selected_category = "🧠 Thinking"
-    st.session_state.current_model = MODEL_CATALOG["🧠 Thinking"][0]
+    st.session_state.selected_category = "👑 Titans (Largest)"
+    st.session_state.current_model = MODEL_CATALOG["👑 Titans (Largest)"][0]
 
 
 # ==========================================
