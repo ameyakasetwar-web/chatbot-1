@@ -19,41 +19,36 @@ except KeyError:
 base_url = "https://ollama.com/v1"
 
 # ==========================================
-# 2. THE MODEL REGISTRY
+# 2. THE MODEL REGISTRY (FILTERED)
 # ==========================================
-# Categorized based on parameter size, capabilities, and intended use-cases
+# Curated list of Gemma, Kimi, Mistral, Llama, Deepseek, GPT-OSS, and Qwen models
 MODEL_CATALOG = {
     "⚡ Fast": [
-        "gemma3", 
-        "ministral-3", 
-        "nemotron-3-nano", 
-        "rnj-1", 
-        "qwen3-coder-next"
+        "gemma3:4b", 
+        "gemma3:12b",
+        "ministral-3:8b",
+        "llama3.1:8b",
+        "qwen3-coder-next:latest"
     ],
     "🧠 Thinking": [
-        "deepseek-v3.2", 
-        "deepseek-v3.1", 
-        "kimi-k2-thinking", 
-        "qwen3-vl", 
-        "qwen3.5", 
-        "gemini-3-flash-preview"
+        "deepseek-v3:latest",
+        "deepseek-v3.2:latest", 
+        "kimi-k2-thinking:latest", 
+        "qwen3.5:latest"
     ],
     "🚀 Pro": [
-        "gpt-oss:120b-cloud", 
-        "glm-5.1", 
-        "glm-5", 
-        "glm-4.7",
-        "gemma4", 
-        "minimax-m2.7", 
-        "minimax-m2.5",
-        "qwen3-coder", 
-        "qwen3-next",
-        "nemotron-3-super", 
-        "cogito-2.1",
-        "devstral-2",
-        "kimi-k2.5"
+        "gpt-oss:120b-cloud",
+        "gpt-oss:120b",
+        "gemma4:27b", 
+        "mistral-large-3:latest",
+        "llama3.3:70b",
+        "deepseek-v3.1:671b",
+        "kimi-k2.5:latest",
+        "qwen3-coder:latest", 
+        "qwen3-next:80b"
     ]
 }
+
 # Dynamically generate the "All" list and sort it alphabetically
 MODEL_CATALOG["🌌 All"] = sorted(list(set(sum(MODEL_CATALOG.values(), []))))
 
@@ -67,7 +62,6 @@ if "messages" not in st.session_state:
 # Callback to update the default model silently when a user clicks a new category tab
 def update_default_model():
     category = st.session_state.selected_category
-    # Set the dropdown to the first model in the newly selected category
     st.session_state.current_model = MODEL_CATALOG[category][0]
 
 if "selected_category" not in st.session_state:
@@ -97,6 +91,7 @@ selected_model = st.selectbox(
 )
 
 st.divider()
+
 
 # ==========================================
 # 5. THE CHAT INTERFACE
